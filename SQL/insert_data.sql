@@ -25,7 +25,7 @@ BEGIN
     SET @i = @i + 1;
 END;
 
-
+---------------------------------------------------------------------------
 
 DECLARE @i INT = 1;
 
@@ -63,7 +63,7 @@ BEGIN
     SET @i = @i + 1;
 END;
 
------------------------------
+---------------------------------------------------------
 
 DECLARE @i INT = 1;
 
@@ -96,7 +96,7 @@ BEGIN
 END;
 
 
----------------------
+------------------------------------------------------------
 
 
 DECLARE @i INT = 1;
@@ -108,15 +108,18 @@ BEGIN
         9000 + @i,
         1000 + @i,
         (ABS(CHECKSUM(NEWID())) % 50) + 5,
-        (ABS(CHECKSUM(NEWID())) % 120) + 24,
+        (ABS(CHECKSUM(NEWID())) % 100) + 10,
         CASE 
-            WHEN @i % 5 = 0 THEN 'Traffic'
-            WHEN @i % 5 = 1 THEN 'Weather'
-            WHEN @i % 5 = 2 THEN 'Warehouse Delay'
-            WHEN @i % 5 = 3 THEN 'Customer Not Available'
-            ELSE NULL
+            WHEN @i <= 80 THEN 'Traffic'                 -- 40%
+            WHEN @i <= 130 THEN 'Weather'               -- 25%
+            WHEN @i <= 170 THEN 'Warehouse Delay'       -- 20%
+            WHEN @i <= 190 THEN 'Customer Not Available'-- 10%
+            ELSE NULL                                   -- 5% no delay
         END
     );
 
     SET @i = @i + 1;
 END;
+
+
+
